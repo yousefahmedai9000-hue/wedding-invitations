@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دعوة زفاف</title>
+<meta name="theme-color" content="#102b25">
+<style>
+:root{--green:#123b32;--gold:#d8bd7b;--cream:#fff9ed}
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#0b211c;color:var(--cream);min-height:100vh;display:grid;place-items:center;padding:18px}
+.card{width:min(100%,520px);min-height:760px;position:relative;overflow:hidden;border:1px solid #d8bd7b88;border-radius:26px;padding:34px 22px;text-align:center;background:linear-gradient(160deg,#1d4b3fdd,#0d2822f2),radial-gradient(circle at top,#54775d,#0b211c);box-shadow:0 20px 60px #0008}
+.card:before,.card:after{content:"✦";position:absolute;color:var(--gold);font-size:32px;opacity:.75}
+.card:before{top:18px;right:20px}.card:after{bottom:18px;left:20px}
+.topline{letter-spacing:3px;color:var(--gold);font-size:12px;margin:12px 0 28px}
+.ornament{font-size:28px;color:var(--gold);margin:16px}
+h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(35px,9vw,54px);line-height:1.35;margin:10px 0;color:var(--gold)}
+.amp{font-size:25px;color:#fff2cf;margin:0}
+.subtitle{font-size:16px;line-height:2;color:#fff9ed;margin:18px auto;max-width:350px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:26px auto;max-width:280px}
+.details{display:grid;gap:12px;margin:22px 0}
+.detail{border:1px solid #d8bd7b55;background:#ffffff09;border-radius:14px;padding:13px}
+.label{font-size:12px;color:var(--gold);margin-bottom:7px}
+.value{font-size:16px;line-height:1.7;overflow-wrap:anywhere}
+.countdown{display:flex;gap:8px;justify-content:center;margin:20px 0}
+.unit{min-width:58px;border:1px solid #d8bd7b77;border-radius:12px;padding:10px 5px;background:#071a16aa}
+.num{font-size:23px;color:var(--gold);font-weight:bold}.unit small{display:block;font-size:11px;margin-top:5px}
+.buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:22px 0}
+.btn{display:inline-block;text-decoration:none;border:1px solid var(--gold);border-radius:999px;padding:12px 18px;color:#102b25;background:var(--gold);font-weight:bold}
+.btn.secondary{background:transparent;color:var(--cream)}
+.footer{font-size:12px;color:#e5d6b0;margin-top:28px}
+.note{font-size:11px;color:#c7d4cc;margin-top:14px}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="topline">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيم</div>
+  <div class="ornament">❦</div>
+  <div>بكل الحب والفرح ندعوكم لمشاركتنا</div>
+  <h1 id="bride">اسم العروسة</h1>
+  <div class="amp">&</div>
+  <h1 id="groom">اسم العريس</h1>
+  <p class="subtitle" id="message">وجودكم يكمّل فرحتنا، ومستنيينكم تشاركونا أجمل يوم في حياتنا.</p>
+  <div class="divider"></div>
+  <section class="details">
+    <div class="detail"><div class="label">موعد الفرح</div><div class="value" id="dateText">اكتب تاريخ الفرح</div></div>
+    <div class="detail"><div class="label">المكان</div><div class="value" id="venue">اسم القاعة ومكانها</div></div>
+  </section>
+  <div class="label">الوقت المتبقي على فرحتنا</div>
+  <div class="countdown">
+    <div class="unit"><span class="num" id="days">--</span><small>يوم</small></div>
+    <div class="unit"><span class="num" id="hours">--</span><small>ساعة</small></div>
+    <div class="unit"><span class="num" id="minutes">--</span><small>دقيقة</small></div>
+    <div class="unit"><span class="num" id="seconds">--</span><small>ثانية</small></div>
+  </div>
+  <div class="buttons">
+    <a class="btn" id="mapBtn" href="#" target="_blank" rel="noopener">📍 مكان الفرح</a>
+    <a class="btn secondary" id="rsvpBtn" href="#" target="_blank" rel="noopener">💌 تأكيد الحضور</a>
+  </div>
+  <div class="divider"></div>
+  <div class="footer" id="footerText">فرحتنا بيكم أجمل ❤️</div>
+  <div class="note">دعوة إلكترونية خاصة</div>
+</main>
+<script>
+const p = new URLSearchParams(location.search);
+const get = (key, fallback) => p.get(key) || fallback;
+const setText = (id, value) => document.getElementById(id).textContent = value;
+const bride = get('bride','اسم العروسة');
+const groom = get('groom','اسم العريس');
+const date = get('date','اكتب تاريخ الفرح');
+const venue = get('venue','اسم القاعة ومكانها');
+const message = get('msg','وجودكم يكمّل فرحتنا، ومستنيينكم تشاركونا أجمل يوم في حياتنا.');
+const map = get('map','');
+const phone = get('phone','');
+const when = get('when','');
+setText('bride',bride); setText('groom',groom); setText('dateText',date);
+setText('venue',venue); setText('message',message);
+document.getElementById('mapBtn').href = map || 'https://maps.google.com';
+if (phone) {
+ const body = encodeURIComponent(`تأكيد حضور فرح ${bride} و${groom}. الاسم: `);
+ document.getElementById('rsvpBtn').href = `https://wa.me/${phone.replace(/\D/g,'')}?text=${body}`;
+} else {
+ document.getElementById('rsvpBtn').href = 'https://wa.me/';
+}
+function tick(){
+ if(!when){['days','hours','minutes','seconds'].forEach(id=>setText(id,'--'));return;}
+ const target = new Date(when).getTime(), diff = target - Date.now();
+ if(Number.isNaN(target)){setText('days','!');return;}
+ const d=Math.max(0,diff);
+ setText('days',Math.floor(d/86400000));
+ setText('hours',Math.floor(d%86400000/3600000));
+ setText('minutes',Math.floor(d%3600000/60000));
+ setText('seconds',Math.floor(d%60000/1000));
+}
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>
