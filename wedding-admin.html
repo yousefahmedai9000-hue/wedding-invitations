@@ -1,0 +1,93 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>لوحة إدارة دعوات الزفاف</title>
+<style>
+:root{--gold:#d9b66d;--panel:#18181b;--text:#f7f0e4}*{box-sizing:border-box}body{margin:0;padding:16px;background:radial-gradient(circle at top,#2b2115,#0b0b0d 48%);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.7}main{max-width:820px;margin:auto}.brand{text-align:center;color:var(--gold);font-size:24px;font-weight:bold}.card{background:var(--panel);border:1px solid #6b542b;border-radius:16px;padding:16px;margin:14px 0}h2{color:var(--gold);font-size:19px;margin:0 0 12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{display:block;font-size:14px;color:#e7d8b9;margin:0 0 4px}input,select,textarea{width:100%;padding:11px;border:1px solid #5b4b30;border-radius:9px;background:#0e0e10;color:#fff;font:inherit}textarea{min-height:80px}button{font:inherit;font-weight:bold;border-radius:10px;padding:12px;border:0;cursor:pointer}.primary{background:linear-gradient(110deg,#b28b3d,#f2dca2);color:#17120a;width:100%;margin-top:12px}.secondary{background:#29251e;color:#f5dfaa;border:1px solid #756039;width:100%;margin-top:8px}.note{font-size:13px;color:#c4b9a6}.status{padding:10px;border-radius:9px;background:#222016;color:#f1d99b;margin-top:10px;overflow-wrap:anywhere}#panel{display:none}a{color:#f3d58d;overflow-wrap:anywhere}.row{margin:10px 0}@media(max-width:550px){.grid{grid-template-columns:1fr}.brand{font-size:21px}}
+
+.design-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+.design-card{border:1px solid #55472f;border-radius:12px;overflow:hidden;background:#111;cursor:pointer;text-align:right;padding:0;color:#fff}
+.design-card .swatch{height:72px;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:21px;letter-spacing:1px}
+.design-card strong{display:block;padding:8px 10px 0;font-size:13px}
+.design-card small{display:block;padding:0 10px 10px;color:#cbbfae;font-size:11px}
+.design-card.active{outline:2px solid #e5c579;outline-offset:1px}
+.swatch.royal{background:linear-gradient(135deg,#080808,#382814);color:#e5c579}
+.swatch.cinematic{background:linear-gradient(180deg,#34302b,#050505);color:#f7eee0}
+.swatch.editorial{background:linear-gradient(135deg,#e9e0d4,#faf7f0);color:#25211d}
+.swatch.floral{background:linear-gradient(135deg,#f7e5e7,#bd7f8b);color:#fff}
+.swatch.ivory{background:linear-gradient(135deg,#f8f3e9,#d8c5a4);color:#92764c}
+.swatch.architecture{background:linear-gradient(135deg,#292822,#76664f);color:#e0d0b2}
+.swatch.deco{background:linear-gradient(135deg,#0b0b0d,#3a2d12);color:#f1d68d}
+.swatch.arabic{background:linear-gradient(135deg,#09251f,#1d5a45);color:#e2d0a4}
+@media(max-width:550px){.design-grid{grid-template-columns:1fr 1fr}.design-card .swatch{height:62px}}
+
+</style></head><body><main><div class="brand">✦ لوحة إدارة دعوات الزفاف ✦</div><p class="note" style="text-align:center">أنشئ الدعوة واحفظها، وسيكون لها رابط قصير باسم تختاره. صورك يجب أن تكون روابط مباشرة من خدمة استضافة صور.</p>
+<section id="login" class="card"><h2>🔐 تسجيل دخول المدير</h2><label for="email">البريد الإلكتروني</label><input id="email" type="email" autocomplete="username"><label for="password" style="margin-top:10px">كلمة المرور</label><input id="password" type="password" autocomplete="current-password"><button class="primary" id="loginBtn">تسجيل الدخول</button><div id="loginStatus" class="status">سجّل الدخول بحساب المدير.</div></section>
+<section id="panel">
+<div class="card"><h2>١) بيانات الدعوة</h2><div class="grid">
+<div><label for="bride">اسم العروسة</label><input id="bride" placeholder="فريدة"></div><div><label for="groom">اسم العريس</label><input id="groom" placeholder="يوسف"></div>
+<div><label for="slug">اسم الرابط بالإنجليزية (بدون مسافات)</label><input id="slug" dir="ltr" placeholder="yousef-farida"><small class="note">اكتب رابطًا مميزًا لكل دعوة، مثل yousef-farida.</small></div>
+<div><label for="design">التصميم</label><select id="design"><option value="royal">Royal Classic — الأسود والذهبي</option><option value="cinematic">Cinematic Luxury — سينمائي</option><option value="editorial">Editorial Vogue — مجلة فاخرة</option><option value="floral">Modern Floral — ورود عصرية</option><option value="ivory">Minimal Ivory — عاجي هادئ</option><option value="architecture">Architectural Luxury — معماري</option><option value="arabic">Arabic Royal — عربي ملكي</option><option value="deco">Art Deco — ديكو ذهبي</option></select><div class="note" style="margin:8px 0">كل قالب له تخطيط خاص. قالب Cinematic يضيف شاشة افتتاحية تفاعلية قبل الدعوة.</div><div id="designPreview" class="status" style="margin-top:8px">Royal Classic — تصميم أسود وذهبي بتفاصيل ملكية.</div><div id="designCards" class="design-grid">
+<button type="button" class="design-card active" data-value="royal"><span class="swatch royal">Royal</span><strong>Royal Classic</strong><small>ملكي أسود وذهبي</small></button>
+<button type="button" class="design-card" data-value="cinematic"><span class="swatch cinematic">LOVE</span><strong>Cinematic Luxury</strong><small>سينمائي وصور كبيرة</small></button>
+<button type="button" class="design-card" data-value="editorial"><span class="swatch editorial">VOGUE</span><strong>Editorial Vogue</strong><small>ستايل مجلة فاخرة</small></button>
+<button type="button" class="design-card" data-value="floral"><span class="swatch floral">Flora</span><strong>Modern Floral</strong><small>وردي وورود عصرية</small></button>
+<button type="button" class="design-card" data-value="ivory"><span class="swatch ivory">Ivory</span><strong>Minimal Ivory</strong><small>هادئ وعاجي</small></button>
+<button type="button" class="design-card" data-value="architecture"><span class="swatch architecture">FORM</span><strong>Architectural</strong><small>هندسي ومعماري</small></button>
+<button type="button" class="design-card" data-value="deco"><span class="swatch deco">DECO</span><strong>Art Deco</strong><small>ذهبي هندسي فاخر</small></button>
+<button type="button" class="design-card" data-value="arabic"><span class="swatch arabic">فرح</span><strong>Arabic Royal</strong><small>عربي ملكي معاصر</small></button>
+</div></div>
+<div><label for="date">التاريخ المعروض</label><input id="date" placeholder="الجمعة 30 أكتوبر"></div><div><label for="when">موعد الحفل للعد التنازلي</label><input id="when" type="datetime-local"></div>
+<div><label for="time">الساعة</label><input id="time" placeholder="8 مساءً"></div><div><label for="venue">القاعة / المكان</label><input id="venue" placeholder="اسم القاعة"></div>
+<div><label for="map">رابط خرائط جوجل</label><input id="map" type="url" placeholder="https://maps.google.com/..."></div><div><label for="phone">رقم واتساب بالكود الدولي</label><input id="phone" inputmode="tel" placeholder="2010xxxxxxxx"></div>
+<div style="grid-column:1/-1"><label for="msg">رسالة الدعوة</label><textarea id="msg" placeholder="يسعدنا دعوتكم لمشاركتنا فرحتنا..."></textarea></div></div></div>
+<div class="card"><h2>٢) روابط الصور</h2><p class="note">لا تختار الصور من معرض الموبايل في هذه النسخة؛ لازم ترفعها أولًا إلى استضافة صور مثل Cloudinary ثم تلصق الرابط المباشر هنا. لا تضع روابط صفحات الصور، بل رابط الصورة المباشر.</p>
+<div class="row"><label for="hero">رابط صورة الغلاف</label><input id="hero" type="url" dir="ltr" placeholder="https://..."></div>
+<div class="row"><label for="photo1">رابط الصورة ١</label><input id="photo1" type="url" dir="ltr" placeholder="https://..."></div>
+<div class="row"><label for="photo2">رابط الصورة ٢</label><input id="photo2" type="url" dir="ltr" placeholder="https://..."></div>
+<div class="row"><label for="photo3">رابط الصورة ٣</label><input id="photo3" type="url" dir="ltr" placeholder="https://..."></div>
+<div class="row"><label for="photo4">رابط الصورة ٤</label><input id="photo4" type="url" dir="ltr" placeholder="https://..."></div>
+<div class="row"><label for="venuePhoto">رابط صورة القاعة</label><input id="venuePhoto" type="url" dir="ltr" placeholder="https://..."></div></div>
+<div class="card"><h2>٣) حفظ وإنشاء الرابط</h2><button class="primary" id="saveBtn">حفظ الدعوة وإنشاء الرابط</button><div id="saveStatus" class="status">املأ البيانات ثم اضغط حفظ الدعوة.</div><div id="linkBox" style="display:none;margin-top:12px"><a id="inviteLink" href="#" target="_blank" rel="noopener"></a><button class="secondary" id="copyBtn">نسخ الرابط</button></div></div>
+</section></main>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import {getAuth,signInWithEmailAndPassword,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+import {getFirestore,doc,setDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+const firebaseConfig={apiKey:"AIzaSyB5xsc6fsJAnE7BmFNe5mmkZy3KSncZ8k8",authDomain:"widing-ivteshon.firebaseapp.com",projectId:"widing-ivteshon",storageBucket:"widing-ivteshon.firebasestorage.app",messagingSenderId:"621505416882",appId:"1:621505416882:web:3780e8c38700e6762703ab"};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+const login=document.getElementById("login"),panel=document.getElementById("panel"),loginStatus=document.getElementById("loginStatus"),saveStatus=document.getElementById("saveStatus");
+onAuthStateChanged(auth,user=>{login.style.display=user?"none":"block";panel.style.display=user?"block":"none";});
+document.getElementById("loginBtn").onclick=async()=>{try{await signInWithEmailAndPassword(auth,document.getElementById("email").value.trim(),document.getElementById("password").value);loginStatus.textContent="تم تسجيل الدخول.";}catch(e){loginStatus.textContent="تعذر تسجيل الدخول. راجع البريد وكلمة المرور.";}};
+
+const designDescriptions={
+ royal:"Royal Classic — تصميم أسود وذهبي بتفاصيل ملكية.",
+ cinematic:"Cinematic Luxury — صورة غلاف كبيرة وأجواء سينمائية داكنة.",
+ editorial:"Editorial Vogue — أسلوب مجلة أزياء، خلفية فاتحة وتنسيق جريء.",
+ floral:"Modern Floral — ألوان وردية ناعمة وإطارات مستوحاة من الزهور.",
+ ivory:"Minimal Ivory — عاجي هادئ، مساحات واسعة وتفاصيل راقية.",
+ architecture:"Architectural Luxury — خطوط معمارية وألوان حجرية فاخرة.",
+ deco:"Art Deco — أسود وذهبي بخطوط هندسية وإطارات مزدوجة.",
+ arabic:"Arabic Royal — أخضر زمردي وذهبي بروح عربية معاصرة."
+};
+function syncDesignCards(value){
+ document.querySelectorAll(".design-card").forEach(card=>card.classList.toggle("active",card.dataset.value===value));
+ document.getElementById("designPreview").textContent=designDescriptions[value]||designDescriptions.royal;
+}
+document.getElementById("design").addEventListener("change",e=>syncDesignCards(e.target.value));
+document.querySelectorAll(".design-card").forEach(card=>card.addEventListener("click",()=>{
+ document.getElementById("design").value=card.dataset.value;
+ syncDesignCards(card.dataset.value);
+}));
+syncDesignCards(document.getElementById("design").value);
+
+const val=id=>document.getElementById(id).value.trim();
+let savedUrl="";
+document.getElementById("saveBtn").onclick=async()=>{const btn=document.getElementById("saveBtn");btn.disabled=true;try{
+ if(!auth.currentUser)throw new Error("سجّل الدخول أولًا.");
+ const slug=val("slug").toLowerCase().replace(/[^a-z0-9-]/g,"").replace(/-+/g,"-").replace(/^-|-$/g,"");
+ if(!slug)throw new Error("اكتب اسم رابط بالإنجليزية، مثل yousef-farida.");
+ const data={slug,bride:val("bride"),groom:val("groom"),date:val("date"),when:val("when"),time:val("time"),venue:val("venue"),map:val("map"),phone:val("phone"),msg:val("msg"),design:val("design"),hero:val("hero"),photo1:val("photo1"),photo2:val("photo2"),photo3:val("photo3"),photo4:val("photo4"),venuePhoto:val("venuePhoto"),published:true,updatedAt:serverTimestamp()};
+ await setDoc(doc(db,"invitations",slug),data,{merge:true});
+ savedUrl="https://yousefahmedai9000-hue.github.io/wedding-invitations/"+encodeURIComponent(slug);
+ const a=document.getElementById("inviteLink");a.href=savedUrl;a.textContent=savedUrl;document.getElementById("linkBox").style.display="block";saveStatus.textContent="تم حفظ الدعوة بنجاح. افتح الرابط للتجربة.";
+ }catch(e){saveStatus.textContent="لم يتم الحفظ: "+(e.message||"خطأ غير معروف")+(e.code?" ("+e.code+")":"");}finally{btn.disabled=false;}};
+document.getElementById("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(savedUrl);document.getElementById("copyBtn").textContent="تم النسخ ✓";}catch(e){saveStatus.textContent="انسخ الرابط الظاهر يدويًا.";}}
+</script></body></html>
