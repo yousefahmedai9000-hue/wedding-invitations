@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة إنشاء دعوات الزفاف</title>
+<style>
+:root{--gold:#d8b56a;--bg:#0b0b0d;--panel:#171719;--muted:#aaa}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top,#282016 0,#0b0b0d 45%);color:#f7f2e8;font-family:Tahoma,Arial,sans-serif;padding:18px;line-height:1.7}
+.wrap{max-width:760px;margin:auto}
+h1{color:var(--gold);text-align:center;font-size:27px;margin:8px 0}
+.sub{text-align:center;color:#c9c0b2;margin:0 0 22px}
+.card{background:rgba(23,23,25,.96);border:1px solid #6e572b;border-radius:18px;padding:18px;margin:14px 0;box-shadow:0 12px 35px #0005}
+h2{font-size:18px;color:var(--gold);margin:0 0 12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;font-size:14px;color:#e3d7bf;margin-bottom:4px}
+input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #51442d;background:#0f0f10;color:#fff;font:inherit;min-width:0}
+textarea{min-height:86px;resize:vertical}
+.full{grid-column:1/-1}
+button{width:100%;padding:13px;border:0;border-radius:11px;font:inherit;font-weight:bold;cursor:pointer;margin-top:10px}
+.primary{background:linear-gradient(110deg,#a57a2d,#f0d99b);color:#17120a}
+.secondary{background:#28241d;color:#f5dfaa;border:1px solid #70592f}
+#result{display:none;overflow-wrap:anywhere;background:#0d0d0e;border:1px dashed #a88745;padding:13px;border-radius:10px;margin-top:14px;direction:ltr;text-align:left}
+.note{font-size:13px;color:#c5bba9}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.full{grid-column:auto}h1{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>✦ لوحة إنشاء دعوات الزفاف ✦</h1>
+  <p class="sub">اكتب بيانات العروسين وطلّع رابط دعوة جاهز للمشاركة</p>
+  <div class="card">
+    <h2>١) بيانات الدعوة</h2>
+    <form id="inviteForm">
+      <div class="grid">
+        <div><label for="bride">اسم العروسة</label><input id="bride" placeholder="مثال: فريدة" required></div>
+        <div><label for="groom">اسم العريس</label><input id="groom" placeholder="مثال: يوسف" required></div>
+        <div><label for="date">التاريخ المعروض</label><input id="date" placeholder="مثال: الجمعة 20 نوفمبر 2026" required></div>
+        <div><label for="when">موعد الحفل للحساب التنازلي</label><input id="when" type="datetime-local"></div>
+        <div><label for="time">الساعة</label><input id="time" placeholder="مثال: 8 مساءً"></div>
+        <div><label for="venue">اسم القاعة / المكان</label><input id="venue" placeholder="اسم القاعة"></div>
+        <div class="full"><label for="map">رابط موقع المكان على خرائط جوجل</label><input id="map" type="url" placeholder="https://maps.google.com/..."></div>
+        <div><label for="phone">رقم واتساب لتأكيد الحضور (بالكود الدولي)</label><input id="phone" inputmode="tel" placeholder="2010xxxxxxxx"></div>
+        <div><label for="hero">رابط صورة الغلاف</label><input id="hero" type="url" placeholder="رابط صورة مرفوعة على الإنترنت"></div>
+        <div class="full"><label for="msg">رسالة الدعوة</label><textarea id="msg" placeholder="يسعدنا دعوتكم لمشاركتنا فرحتنا..."></textarea></div>
+      </div>
+      <h2 style="margin-top:20px">٢) صور إضافية (اختياري)</h2>
+      <div class="grid">
+        <div><label for="photo1">رابط الصورة الأولى</label><input id="photo1" type="url" placeholder="https://..."></div>
+        <div><label for="photo2">رابط الصورة الثانية</label><input id="photo2" type="url" placeholder="https://..."></div>
+        <div><label for="photo3">رابط الصورة الثالثة</label><input id="photo3" type="url" placeholder="https://..."></div>
+        <div><label for="photo4">رابط الصورة الرابعة</label><input id="photo4" type="url" placeholder="https://..."></div>
+      </div>
+      <button class="primary" type="submit">إنشاء رابط الدعوة</button>
+    </form>
+    <div id="result"><strong style="color:#f0d99b">رابط الدعوة:</strong><div id="urlText"></div></div>
+    <button id="copyBtn" class="secondary" type="button" style="display:none">نسخ الرابط</button>
+    <button id="openBtn" class="secondary" type="button" style="display:none">فتح ومعاينة الدعوة</button>
+    <p class="note">ملحوظة: الصور لازم تكون مرفوعة على الإنترنت كرابط مباشر للصورة. اللوحة دي بتولّد الرابط فقط؛ مش بترفع الصور بنفسها.</p>
+  </div>
+  <div class="card">
+    <h2>طريقة الاستخدام</h2>
+    <p>١. املأ بيانات العميل.<br>٢. اضغط «إنشاء رابط الدعوة».<br>٣. انسخ الرابط وابعت للعميل أو افتحه للمعاينة.</p>
+    <p class="note">اللوحة صفحة عامة لو رفعتها على نفس الموقع؛ أي شخص معه رابطها يقدر يستخدمها. لا تضع فيها بيانات سرية.</p>
+  </div>
+</div>
+<script>
+const BASE = "https://yousefahmedai9000-hue.github.io/wedding-invitations/";
+const form = document.getElementById('inviteForm');
+const result = document.getElementById('result');
+const urlText = document.getElementById('urlText');
+const copyBtn = document.getElementById('copyBtn');
+const openBtn = document.getElementById('openBtn');
+let inviteUrl = '';
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  const params = new URLSearchParams();
+  ['bride','groom','date','when','time','venue','map','phone','hero','msg','photo1','photo2','photo3','photo4'].forEach(id=>{
+    const value = document.getElementById(id).value.trim();
+    if(value) params.set(id, value);
+  });
+  inviteUrl = BASE + '?' + params.toString();
+  urlText.textContent = inviteUrl;
+  result.style.display = 'block';
+  copyBtn.style.display = 'block';
+  openBtn.style.display = 'block';
+});
+copyBtn.addEventListener('click', async ()=>{
+  try{
+    await navigator.clipboard.writeText(inviteUrl);
+    copyBtn.textContent = 'تم نسخ الرابط ✓';
+  }catch(e){
+    const range = document.createRange();
+    range.selectNodeContents(urlText);
+    const selection = window.getSelection();
+    selection.removeAllRanges(); selection.addRange(range);
+    copyBtn.textContent = 'حدّد الرابط وانسخه يدويًا';
+  }
+});
+openBtn.addEventListener('click', ()=>window.open(inviteUrl,'_blank'));
+</script>
+</body>
+</html>
